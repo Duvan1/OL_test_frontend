@@ -1,0 +1,65 @@
+@import '@/styles/variables.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(30, 58, 138, 0.04);
+}
+.logo {
+  height: 2.5rem;
+}
+.nav {
+  display: flex;
+  gap: 1.5rem;
+  color: $color-primary;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.navActive {
+  border-bottom: 2px solid $color-primary;
+  padding-bottom: 0.25rem;
+}
+.navLink {
+  cursor: pointer;
+  transition: color 0.2s;
+  &:hover {
+    color: $color-secondary;
+  }
+}
+.benefits {
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1rem;
+}
+.userBox {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: #f3f4f6;
+  border-radius: 0.5rem;
+  padding: 0.25rem 0.75rem;
+}
+.userName {
+  font-weight: bold;
+}
+.userRole {
+  font-size: 0.8rem;
+  color: $color-text-light;
+}
+.logout {
+  margin-left: 0.5rem;
+  color: $color-danger;
+  font-size: 0.8rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-decoration: underline;
+  &:hover {
+    color: darken($color-danger, 10%);
+  }
+} 
