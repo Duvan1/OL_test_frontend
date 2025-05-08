@@ -25,8 +25,20 @@ export default function HomePage() {
   } = useMerchants(token)
 
   useEffect(() => {
+    if (!token || !user) {
+      router.replace('/login')
+      return
+    }
     fetchMerchants()
-  }, [fetchMerchants])
+  }, [fetchMerchants, token, user, router])
+
+  if (!token || !user) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <span className="text-blue-900 text-lg font-semibold">Cargando...</span>
+      </div>
+    )
+  }
 
   const handleEdit = (id: number) => {
     router.push(`/comerciantes/${id}/editar`)
