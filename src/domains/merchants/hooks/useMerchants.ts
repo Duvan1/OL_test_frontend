@@ -13,7 +13,6 @@ export function useMerchants(token: string | null) {
     setLoading(true)
     getMerchants(page, limit, token)
       .then(res => {
-        debugger
         const data = res.data.data;
         const total = res.data.meta.total;
         setMerchants(

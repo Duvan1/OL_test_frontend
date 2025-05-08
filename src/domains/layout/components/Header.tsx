@@ -3,17 +3,29 @@
 import { useAuthStore } from '@/store/authStore'
 import styles from '../styles/Header.module.scss'
 import UserInfoHeader from './UserInfoHeader'
+import { usePathname } from 'next/navigation'
 
 export default function Header() {
   const { user } = useAuthStore()
+  const pathname = usePathname();
 
   return (
     <header className={styles.header}>
       <div className="flex items-center gap-8">
         <img src="/logo.png" alt="Logo OL" className={styles.logo} />
         <nav className={styles.nav}>
-          <span className={styles.navActive}>Lista de comerciantes</span>
-          <span className={styles.navLink}>Crear Formulario</span>
+          <a
+            href="/"
+            className={pathname === '/' ? styles.navActive : styles.navLink}
+          >
+            Lista de comerciantes
+          </a>
+          <a
+            href="/merchants/create"
+            className={pathname === '/merchants/create' ? styles.navActive : styles.navLink}
+          >
+            Crear Formulario
+          </a>
         </nav>
       </div>
       <div className="flex items-center gap-8">

@@ -41,11 +41,11 @@ export default function HomePage() {
   }
 
   const handleEdit = (id: number) => {
-    router.push(`/comerciantes/${id}/editar`)
+    router.push(`/merchants/${id}/editar`)
   }
 
   const handleCreate = () => {
-    router.push('/comerciantes/nuevo')
+    router.push('/merchants/create')
   }
 
   const totalPages = Math.ceil(total / limit)
