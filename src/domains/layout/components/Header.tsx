@@ -1,8 +1,7 @@
 "use client"
 
 import { useAuthStore } from '@/store/authStore'
-import { useRouter } from 'next/navigation'
-import styles from './Header.module.scss'
+import styles from '../styles/Header.module.scss'
 import UserInfoHeader from './UserInfoHeader'
 
 export default function Header() {

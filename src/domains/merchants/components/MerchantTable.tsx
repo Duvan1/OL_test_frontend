@@ -1,5 +1,7 @@
-import styles from './MerchantTable.module.scss'
+import styles from '../styles/MerchantTable.module.scss'
 import { useAuthStore } from '@/store/authStore'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faCheck, faTimes, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 interface Merchant {
   id: number
@@ -61,10 +63,10 @@ export default function MerchantTable({ merchants, loading, page, totalPages, li
                   <span className={styles.statusInactive}>Inactivo</span>
                 )}</td>
                 <td className={styles.actions}>
-                  <button title="Editar" className={`${styles.actionBtn} edit`} onClick={() => onEdit(m.id)}><i className="fas fa-edit" /></button>
-                  <button title={m.status === 'ACTIVE' ? 'Inactivar' : 'Activar'} className={`${styles.actionBtn} toggle`} onClick={() => onToggle(m.id, m.status)}><i className={`fas fa-${m.status === 'ACTIVE' ? 'times' : 'check'}`} /></button>
+                  <button title="Editar" className={`${styles.actionBtn} edit`} onClick={() => onEdit(m.id)}><FontAwesomeIcon icon={faEdit} /></button>
+                  <button title={m.status === 'ACTIVE' ? 'Inactivar' : 'Activar'} className={`${styles.actionBtn} toggle`} onClick={() => onToggle(m.id, m.status)}><FontAwesomeIcon icon={m.status === 'ACTIVE' ? faTimes : faCheck} /></button>
                   {user?.role === 'Administrador' && (
-                    <button title="Eliminar" className={`${styles.actionBtn} delete`} onClick={() => onDelete(m.id)}><i className="fas fa-trash" /></button>
+                    <button title="Eliminar" className={`${styles.actionBtn} delete`} onClick={() => onDelete(m.id)}><FontAwesomeIcon icon={faTrash} /></button>
                   )}
                 </td>
               </tr>

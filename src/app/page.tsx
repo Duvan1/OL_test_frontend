@@ -2,10 +2,10 @@
 
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
-import Header from '@/components/Header'
-import MerchantTable from '@/components/MerchantTable'
 import { useAuthStore } from '@/store/authStore'
-import { useMerchants } from '@/hooks/useMerchants'
+import Header from '@/domains/layout/components/Header'
+import MerchantTable from '@/domains/merchants/components/MerchantTable'
+import { useMerchants } from '@/domains/merchants/hooks/useMerchants'
 
 export default function HomePage() {
   const { token, user } = useAuthStore()

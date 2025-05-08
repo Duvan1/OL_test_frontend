@@ -1,4 +1,4 @@
-import styles from './LoginForm.module.scss'
+import styles from '../styles/LoginForm.module.scss'
 
 interface LoginFormProps {
   email: string

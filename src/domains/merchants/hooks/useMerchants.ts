@@ -1,5 +1,5 @@
 import { useState, useCallback } from 'react'
-import { getMerchants, patchMerchantStatus, deleteMerchant, downloadMerchantsCSV } from '@/services/merchantService'
+import { getMerchants, patchMerchantStatus, deleteMerchant, downloadMerchantsCSV } from '../services/merchantService'
 
 export function useMerchants(token: string | null) {
   const [merchants, setMerchants] = useState<any[]>([])
@@ -13,11 +13,17 @@ export function useMerchants(token: string | null) {
     setLoading(true)
     getMerchants(page, limit, token)
       .then(res => {
-        setMerchants(res.data.map((m: any) => ({
-          ...m,
-          establishments: m.establishments || m.no_establecimientos || 0
-        })))
-        setTotal(res.meta.total)
+        debugger
+        const data = res.data.data;
+        const total = res.data.meta.total;
+        setMerchants(
+          res.data.data.map((m: any) => ({
+            ...m,
+            registration_date: m.created_at ? m.created_at.slice(0, 10) : '', // Formato YYYY-MM-DD
+            establishments: m.establishments || m.no_establecimientos || 0
+          }))
+        )
+        setTotal(total)
       })
       .finally(() => setLoading(false))
   }, [page, limit, token])

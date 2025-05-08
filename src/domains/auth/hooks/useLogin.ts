@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
 import { useAuthStore } from '@/store/authStore'
-import { loginService } from '@/services/authService'
+import { loginService } from '../services/authService'
 
 export function useLogin() {
   const [email, setEmail] = useState('')

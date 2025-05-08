@@ -1,9 +1,9 @@
 "use client"
 
-import LoginHeader from '@/components/LoginHeader'
-import LoginForm from '@/components/LoginForm'
-import { useLogin } from '@/hooks/useLogin'
-import styles from '@/components/LoginForm.module.scss'
+import styles from '@/domains/auth/styles/LoginForm.module.scss'
+import LoginForm from '@/domains/auth/components/LoginForm'
+import LoginHeader from '@/domains/auth/components/LoginHeader'
+import { useLogin } from '@/domains/auth/hooks/useLogin'
 
 export default function LoginPage() {
   const loginProps = useLogin()
