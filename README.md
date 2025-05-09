@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# OL Frontend
 
-## Getting Started
+Este proyecto es el frontend de la plataforma de gestión de comerciantes OL, desarrollado en Next.js 15+.
 
-First, run the development server:
+## Requisitos
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- Node.js 18+
+- npm 9+
+- El backend debe estar corriendo en `http://localhost:3000` (puerto 3000)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Instalación
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+1. Clona el repositorio:
+   ```bash
+   git clone <REPO_URL>
+   cd Frontend
+   ```
+2. Instala las dependencias:
+   ```bash
+   npm install
+   ```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Ejecución en desarrollo
 
-## Learn More
+1. Asegúrate de que el backend esté corriendo en `http://localhost:3000`.
+2. Inicia el frontend:
+   ```bash
+   npm run dev
+   ```
+3. Abre [http://localhost:3001](http://localhost:3001) (o el puerto que indique la consola) en tu navegador.
 
-To learn more about Next.js, take a look at the following resources:
+## Notas importantes
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- El frontend consume la API del backend en `http://localhost:3000`. Si el backend no está corriendo en ese puerto, la autenticación y las funcionalidades principales no funcionarán.
+- Si necesitas cambiar la URL del backend, edita la variable `NEXT_PUBLIC_API_URL` en el archivo `.env.local`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts útiles
 
-## Deploy on Vercel
+- `npm run dev` — Inicia el servidor de desarrollo
+- `npm run build` — Compila la aplicación para producción
+- `npm run start` — Inicia la app en modo producción
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Stack principal
+- Next.js 15+
+- Zustand (gestión de estado)
+- react-hook-form + yup (formularios y validaciones)
+- react-hot-toast (notificaciones)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+Para cualquier duda, contacta al equipo de desarrollo OL.

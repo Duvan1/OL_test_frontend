@@ -64,75 +64,102 @@ export default function MerchantForm({ mode = 'create', initialData }: { mode: '
         <h2 className="text-2xl font-bold mb-6 text-blue-900">Datos Generales</h2>
         <div className="grid grid-cols-2 gap-x-8 gap-y-4">
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Nombre *</label>
-            <Controller name="name" control={control} render={({ field }) => (
-              <input {...field} className="input border rounded px-3 py-2" />
-            )} />
+            <label htmlFor="name" className="font-medium mb-1">Nombre *</label>
+            <Controller
+              name="name"
+              control={control}
+              render={({ field }) => (
+                <input {...field} id="name" className="input border rounded px-3 py-2" />
+              )}
+            />
             {errors.name && <span className="text-red-500 text-xs">{String(errors.name.message)}</span>}
           </div>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Tipo de documento *</label>
-            <Controller name="document_type" control={control} render={({ field }) => (
-              <select {...field} className="input border rounded px-3 py-2">
-                <option value="">Seleccione</option>
-                <option value="NIT">NIT</option>
-                <option value="CC">Cédula de Ciudadanía</option>
-                <option value="CE">Cédula de Extranjería</option>
-              </select>
-            )} />
+            <label htmlFor="document_type" className="font-medium mb-1">Tipo de documento *</label>
+            <Controller
+              name="document_type"
+              control={control}
+              render={({ field }) => (
+                <select {...field} id="document_type" className="input border rounded px-3 py-2">
+                  <option value="">Seleccione</option>
+                  <option value="NIT">NIT</option>
+                  <option value="CC">Cédula de Ciudadanía</option>
+                  <option value="CE">Cédula de Extranjería</option>
+                </select>
+              )}
+            />
             {errors.document_type && <span className="text-red-500 text-xs">{String(errors.document_type.message)}</span>}
           </div>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Número de documento *</label>
-            <Controller name="document_number" control={control} render={({ field }) => (
-              <input {...field} className="input border rounded px-3 py-2" />
-            )} />
+            <label htmlFor="document_number" className="font-medium mb-1">Número de documento *</label>
+            <Controller
+              name="document_number"
+              control={control}
+              render={({ field }) => (
+                <input {...field} id="document_number" className="input border rounded px-3 py-2" />
+              )}
+            />
             {errors.document_number && <span className="text-red-500 text-xs">{String(errors.document_number.message)}</span>}
           </div>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Ciudad *</label>
-            <Controller name="municipality_id" control={control} render={({ field }) => (
-              <select
-                {...field}
-                className="input border rounded px-3 py-2"
-                onChange={e => field.onChange(Number(e.target.value))}
-                value={field.value}
-              >
-                <option value="">Seleccione</option>
-                {cities.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
-              </select>
-            )} />
+            <label htmlFor="municipality_id" className="font-medium mb-1">Ciudad *</label>
+            <Controller
+              name="municipality_id"
+              control={control}
+              render={({ field }) => (
+                <select {...field} id="municipality_id" className="input border rounded px-3 py-2">
+                  <option value="">Seleccione</option>
+                  {cities.map((c: any) => <option key={c.id} value={c.id}>{c.name}</option>)}
+                </select>
+              )}
+            />
             {errors.municipality_id && <span className="text-red-500 text-xs">{String(errors.municipality_id.message)}</span>}
           </div>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Teléfono</label>
-            <Controller name="phone" control={control} render={({ field }) => (
-              <input {...field} className="input border rounded px-3 py-2" />
-            )} />
+            <label htmlFor="phone" className="font-medium mb-1">Teléfono</label>
+            <Controller
+              name="phone"
+              control={control}
+              render={({ field }) => (
+                <input {...field} id="phone" className="input border rounded px-3 py-2" />
+              )}
+            />
             {errors.phone && <span className="text-red-500 text-xs">{String(errors.phone.message)}</span>}
           </div>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Correo electrónico</label>
-            <Controller name="email" control={control} render={({ field }) => (
-              <input {...field} className="input border rounded px-3 py-2" />
-            )} />
+            <label htmlFor="email" className="font-medium mb-1">Correo electrónico</label>
+            <Controller
+              name="email"
+              control={control}
+              render={({ field }) => (
+                <input {...field} id="email" className="input border rounded px-3 py-2" />
+              )}
+            />
             {errors.email && <span className="text-red-500 text-xs">{String(errors.email.message)}</span>}
           </div>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Fecha de registro *</label>
-            <Controller name="registration_date" control={control} render={({ field }) => (
-              <input type="date" {...field} className="input border rounded px-3 py-2" />
-            )} />
+            <label htmlFor="registration_date" className="font-medium mb-1">Fecha de registro *</label>
+            <Controller
+              name="registration_date"
+              control={control}
+              render={({ field }) => (
+                <input {...field} id="registration_date" type="date" className="input border rounded px-3 py-2" />
+              )}
+            />
             {errors.registration_date && <span className="text-red-500 text-xs">{String(errors.registration_date.message)}</span>}
           </div>
           <div className="flex flex-col">
-            <label className="font-medium mb-1">Estado *</label>
-            <Controller name="status" control={control} render={({ field }) => (
-              <select {...field} className="input border rounded px-3 py-2">
-                <option value="ACTIVE">Activo</option>
-                <option value="INACTIVE">Inactivo</option>
-              </select>
-            )} />
+            <label htmlFor="status" className="font-medium mb-1">Estado *</label>
+            <Controller
+              name="status"
+              control={control}
+              render={({ field }) => (
+                <select {...field} id="status" className="input border rounded px-3 py-2">
+                  <option value="ACTIVE">Activo</option>
+                  <option value="INACTIVE">Inactivo</option>
+                </select>
+              )}
+            />
             {errors.status && <span className="text-red-500 text-xs">{String(errors.status.message)}</span>}
           </div>
         </div>

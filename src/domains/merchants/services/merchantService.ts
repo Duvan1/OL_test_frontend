@@ -1,24 +1,117 @@
-import { apiClient } from '@/lib/api-client'
+import { API_URL } from '@/config/constants';
 
-const ENDPOINT = '/api/merchants'
+interface Merchant {
+  id?: number;
+  name: string;
+  document_type: string;
+  document_number: string;
+  municipality_id: number;
+  phone: string;
+  email: string;
+  registration_date: string;
+  status: string;
+  hasEstablishments?: boolean;
+}
 
-export const getMerchants = (page: number, limit: number, token: string) =>
-  apiClient.get<any>(`${ENDPOINT}?page=${page}&limit=${limit}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
+interface PaginationParams {
+  page: number;
+  limit: number;
+}
+
+interface PaginatedResponse<T> {
+  data: T[];
+  total: number;
+}
+
+const handleResponse = async (response: Response) => {
+  const data = await response.json();
+  if (!response.ok) {
+    throw new Error(data.message || 'Error en la petición');
+  }
+  return data;
+};
+
+export const getMerchants = async (params: PaginationParams, token?: string): Promise<PaginatedResponse<Merchant>> => {
+  const { page, limit } = params;
+  const response = await fetch(`${API_URL}/merchants?page=${page}&limit=${limit}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  return handleResponse(response);
+};
+
+export const getMerchantById = async (id: number, token?: string): Promise<Merchant> => {
+  const response = await fetch(`${API_URL}/merchants/${id}`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  return handleResponse(response);
+};
+
+export const createMerchant = async (merchant: Omit<Merchant, 'id'>, token?: string): Promise<Merchant> => {
+  const response = await fetch(`${API_URL}/merchants`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+    body: JSON.stringify(merchant),
+  });
+  return handleResponse(response);
+};
+
+export const updateMerchant = async (id: number, merchant: Merchant, token?: string): Promise<Merchant> => {
+  const response = await fetch(`${API_URL}/merchants/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+    body: JSON.stringify(merchant),
+  });
+  return handleResponse(response);
+};
+
+export const deleteMerchant = async (id: number, token?: string): Promise<Merchant> => {
+  const response = await fetch(`${API_URL}/merchants/${id}`, {
+    method: 'DELETE',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  return handleResponse(response);
+};
+
+export const getMunicipalities = async (token?: string): Promise<{ id: number; name: string }[]> => {
+  const response = await fetch(`${API_URL}/municipalities`, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      ...(token && { Authorization: `Bearer ${token}` }),
+    },
+  });
+  return handleResponse(response);
+};
 
 export const patchMerchantStatus = (id: number, status: 'ACTIVE' | 'INACTIVE', token: string) =>
-  apiClient.patch(`${ENDPOINT}/${id}/status`, { status }, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
-
-export const deleteMerchant = (id: number, token: string) =>
-  apiClient.delete(`${ENDPOINT}/${id}`, {
-    headers: { Authorization: `Bearer ${token}` }
-  })
+  fetch(`${API_URL}/merchants/${id}/status`, {
+    method: 'PATCH',
+    headers: {
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    },
+    body: JSON.stringify({ status }),
+  }).then(handleResponse);
 
 export const downloadMerchantsCSV = async (token: string) => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}${ENDPOINT}/report`, {
+  const res = await fetch(`${API_URL}/merchants/report`, {
     headers: { Authorization: `Bearer ${token}` }
   })
   return res.blob()
@@ -39,27 +132,6 @@ export async function getCities(departmentId: string) {
   return [];
 }
 
-export async function createMerchant(data: any, token?: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/merchants`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {})
-    },
-    body: JSON.stringify(data)
-  });
-  if (!res.ok) {
-    const error = await res.json().catch(() => ({}));
-    throw new Error(error?.message || 'Error al crear comerciante');
-  }
-  return await res.json();
-}
-
-export async function updateMerchant(id: string, data: any) {
-  // Reemplazar con PUT real
-  return Promise.resolve({ success: true });
-}
-
 export async function getMerchantEstablishments(merchantId: string) {
   // Simulación, reemplazar con fetch real
   return {
@@ -68,32 +140,8 @@ export async function getMerchantEstablishments(merchantId: string) {
   };
 }
 
-export async function getMerchantById(id: string) {
-  // Simulación, reemplazar con fetch real
-  return {
-    id,
-    name: 'Empresa 1',
-    department: 'amazonas',
-    city: 'alcala',
-    phone: '1234567',
-    email: 'empresa1@email.com',
-    registrationDate: '2024-05-08',
-    status: 'activo',
-    hasEstablishments: true,
-  };
-}
-
-export async function getMunicipalities(token: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/municipalities`, {
-    headers: { Authorization: `Bearer ${token}` }
-  });
-  if (!res.ok) throw new Error('Error al obtener municipios');
-  const result = await res.json();
-  return result.data.data; // Array de municipios
-}
-
 export async function getEstablishments(token: string) {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/establishments`, {
+  const res = await fetch(`${API_URL}/establishments`, {
     headers: { Authorization: `Bearer ${token}` }
   });
   if (!res.ok) throw new Error('Error al obtener establecimientos');
